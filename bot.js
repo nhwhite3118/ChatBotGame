@@ -28,3 +28,26 @@ controller.hears(['lunch\?'],'ambient',function(bot, message) {
 	var place = restraurants[Math.floor(Math.random()*restraurants.length)]
 	bot.reply(message,place);
 });
+controller.hears('Game','ambient',function(bot,message){
+	confirm = function(response,convo) {
+		convo.ask("Do you want to play a game?",[
+		{	pattern:bot.utterances.yes,
+			callback:function(response,convo){
+				convo.say('Cool. I\'ll try to make one soon');
+				convo.next();
+			}
+		},
+		{	pattern:bot.utterances.no,
+			callback:function(response,convo){
+				convo.say('Ok. Less work for me.');
+				convo.next();
+			}
+
+		}
+		]);
+
+	}
+	bot.startConversation(message,confirm);
+});
+
+console.log("Hello World");
